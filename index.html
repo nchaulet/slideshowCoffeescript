@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 
 <head>
 	<meta charset="utf-8">
 
-	<title>reveal.js - The HTML Presentation Framework</title>
+	<title>CoffeeScript it's just javascript</title>
 
 	<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-	<meta name="author" content="Hakim El Hattab">
+	<meta name="author" content="Nicolas Chaulet">
 
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -59,7 +59,7 @@
 				<ul>
 					<li>
 						Une sortie javascript propre (
-						<a href="">JSLint</a>
+						<a href="http://jslint.com">JSLint</a>
 						)
 					</li>
 					<li>Gain de temps</li>
@@ -67,68 +67,137 @@
 			</section>
 
 			<section>
-				<h2>Un peu de code</h2>
+				<h2>Compilateurs</h2>
+				<br/>
+				<ul>
+					<li>module node</li>
+					<li> utilisable avec Assetic</li>
+				</ul>
+				<pre><code>
+	coffee -c *.coffee
+</code></pre>
 			</section>
 
-			<!-- Variable -->
 			<section>
-				<h2> Variable </h2>
-				<pre><code class="coffeescript">
-variable = 1
-				</code></pre>
+				<!-- Code -->
+				<section>
+					<h2>Un peu de code</h2>
+				</section>
 
-				<pre><code class="javascript">
-var variable = 1;
-				</code></pre>
+				<!-- Variable -->
+				<section>
+					<h2> Variable </h2>
+					<pre><code class="coffeescript">
+	variable = 1
+					</code></pre>
+
+					<pre><code class="javascript">
+	var variable = 1;
+					</code></pre>
+				</section>
+
+				<!-- Function -->
+				<section>
+					<h2>Fonctions</h2>
+					<pre><code class="coffeescript">
+	# fonction qui retourne le carre d'un nombre
+	carre = (x) ->
+		# corps de la méthode
+		x*x
+
+	# Appel de la méthode
+	carre 2
+					</code></pre>
+
+					<pre><code class="javascript">
+	var carre;
+
+	carre = function(x) {
+	  return x * x;
+	};
+
+	carre(2);
+					</code></pre>
+				</section>
 			</section>
-
-			<!-- Function -->
-			<section>
-				<h2>Fonctions</h2>
-				<pre><code class="coffeescript">
-carre = (x) -> x*x
-				</code></pre>
-
-				<pre><code class="javascript">
-carre = function () {
-	return x*x;
-}
-				</code></pre>
-			</section>
-
 			<section>
 				<section>
-					<h2>Objet et d'heritage</h2>
+					<h2>Objet et heritage</h2>
+				</section>
+
+				<section>
+					<h2> Une classe en javascript </h2>
+					<br/>
+					<pre><code>
+Objet.prototype.methode =  function () { ... }
+					</code></pre>
+					<pre><code>
+Objet { methode : function()  { ... } }
+					</code></pre>
+					<pre><code>
+Objet = new function() { this.methode =  function () {...} }
+					</code></pre>
 				</section>
 
 				<section>
 					<pre><code class="coffeescript">
-	# classe qui représente un livre
-	class Livre
-		constructor: (@titre, @datePublication)
+	class Tortue
+		constructor: (@name) ->
 
-		lire : () ->
-			console.log @titre+' lu '
+		move: (distance) ->
+			console.log @name+': avance '+distance
+
+		privateVariable =
+
+		@ageMaximum = 200
 
 		@staticMethode : () ->
 			console.log 'méthode statique!'
+
+
+					</code></pre>
+				</section>
+				<section>
+					<pre><code  style="max-height:none;" class="javascript">
+	Tortue = (function() {
+
+		var privateVariable;
+
+  		function Tortue(name) {
+    		this.name = name;
+  		}
+
+	  	Tortue.prototype.move = function(distance) {
+
+			return console.log(this.name + ': avance ' + distance);
+	  	};
+
+	  	Tortue.ageMaximum = 200;
+
+	  	Tortue.staticMethode = function() {
+
+	  		return console.log('méthode statique!');
+	  	};
+
+	  	return Tortue;
+	})();
+
+
 					</code></pre>
 				</section>
 
 
 				<section>
 					<pre><code class="coffeescript">
-	# classe qui représente une bande dessinée
-	class BD extends Livre
-		constructor: (@titre, @datePublication)
+	class TortueNinja extends Tortue
 
-		lire : () ->
-			console.log @titre+' regardé '
+		move: (distance) ->
+			super distance*2
+			console.log @name+': cowabunga !'
 
-		@staticMethode : () ->
-			console.log 'méthode statique!'
 					</code></pre>
 				</section>
+
 			</section>
 
 			<section>
@@ -145,6 +214,9 @@ carre = function () {
 			<section>
 				<section>
 						<h1> Questions ?</h1>
+						<a href="http://coffeescript.org/">
+							<img src="img/logo.png" class="image"/>
+						</a>
 				</section>
 
 				<section>
@@ -175,19 +247,18 @@ carre = function () {
 				history: true,
 				center: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+				transition: 'default', // default/cube/page/concave/zoom/linear/none
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
 					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					   // Interpret Markdown in <section> elements
-			        { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-			        { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+
 
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '/socket.io/socket.io.js', async: true },
+					// { src: 'plugin/notes-server/client.js', async: true },
+					// // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
