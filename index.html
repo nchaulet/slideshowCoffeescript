@@ -44,10 +44,10 @@
 			</section>
 
 			<section>
-				<h2>Coffeescript c'est quoi ?</h2>
+				<h2>C'est quoi Coffeescript ?</h2>
 				<br/>
 				<ul>
-					<li>Un language qui se compile en javascript</li>
+					<li>Un langage qui se compile en javascript</li>
 					<li>Une synthaxe simple</li>
 					<li>Du javascript</li>
 				</ul>
@@ -88,11 +88,11 @@
 				<section>
 					<h2> Variable </h2>
 					<pre><code class="coffeescript">
-	variable = 1
+	boisson = 'coffee'
 					</code></pre>
 
 					<pre><code class="javascript">
-	var variable = 1;
+	var boisson = 'coffee';
 					</code></pre>
 				</section>
 
@@ -100,29 +100,92 @@
 				<section>
 					<h2>Fonctions</h2>
 					<pre><code class="coffeescript">
-	# fonction qui retourne le carre d'un nombre
-	carre = (x) ->
-		# corps de la méthode
-		x*x
+	drink = (boisson = 'coffee') ->
+		console.log 'drinking' + boisson
 
 	# Appel de la méthode
-	carre 2
+	drink 'beer'
 					</code></pre>
 
 					<pre><code class="javascript">
-	var carre;
+	var drink;
 
-	carre = function(x) {
-	  return x * x;
+	drink = function(boisson) {
+		if (boisson == null) {
+   			boisson = 2;
+  		}
+
+		return console.log('drinking' + boisson);
 	};
 
-	carre(2);
+	drink('beer');
 					</code></pre>
 				</section>
+
+					<section>
+					<h2>Boucle</h2>
+					<pre><code class="coffeescript">
+boissons = ['coffee', 'beer', 'water']
+
+drink boisson for boisson in boissons
+
+drink boisson for boisson in boissons when boisson isnt 'water'
+					</code></pre>
+
+					<pre><code class="javascript">
+var boisson, boissons, _i, _j, _len, _len1;
+
+boissons = ['coffee', 'beer', 'water'];
+
+for (_i = 0, _len = boissons.length; _i < _len; _i++) {
+  boisson = boissons[_i];
+  drink(boisson);
+}
+
+for (_j = 0, _len1 = boissons.length; _j < _len1; _j++) {
+  boisson = boissons[_j];
+  if (boisson !== 'water') {
+    drink(boisson);
+  }
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Tips</h2>
+					<pre><code class="coffeescript">
+# valeur par défault
+boisson ?= 'coffee'
+
+# test
+if boisson in ['coffee', 'beer', 'chocolate']
+	console.log 'trouvé'+boisson
+else
+	console.log 'non trouvé'+boisson
+
+					</code></pre>
+
+					<pre><code class="javascript">
+var boisson;
+
+boisson = null;
+
+if (boisson == null) {
+  boisson = 'coffee';
+}
+
+if (boisson === 'coffee' || boisson === 'beer' || boisson === 'chocolate') {
+  console.log('trouvé' + boisson);
+} else {
+  console.log('non trouvé' + boisson);
+}
+					</code></pre>
+				</section>
+
 			</section>
 			<section>
 				<section>
-					<h2>Objet et heritage</h2>
+					<h2>Un peu d'objet ?</h2>
 				</section>
 
 				<section>
@@ -147,8 +210,7 @@ Objet = new function() { this.methode =  function () {...} }
 		move: (distance) ->
 			console.log @name+': avance '+distance
 
-		privateVariable =
-
+		# var statique
 		@ageMaximum = 200
 
 		@staticMethode : () ->
@@ -159,28 +221,26 @@ Objet = new function() { this.methode =  function () {...} }
 				</section>
 				<section>
 					<pre><code  style="max-height:none;" class="javascript">
-	Tortue = (function() {
+Tortue = (function() {
 
-		var privateVariable;
+		function Tortue(name) {
+		this.name = name;
+		}
 
-  		function Tortue(name) {
-    		this.name = name;
-  		}
+  	Tortue.prototype.move = function(distance) {
 
-	  	Tortue.prototype.move = function(distance) {
+	return console.log(this.name + ': avance ' + distance);
+  	};
 
-			return console.log(this.name + ': avance ' + distance);
-	  	};
+  	Tortue.ageMaximum = 200;
 
-	  	Tortue.ageMaximum = 200;
+  	Tortue.staticMethode = function() {
 
-	  	Tortue.staticMethode = function() {
+  		return console.log('méthode statique!');
+  	};
 
-	  		return console.log('méthode statique!');
-	  	};
-
-	  	return Tortue;
-	})();
+  	return Tortue;
+})();
 
 
 					</code></pre>
@@ -198,16 +258,40 @@ Objet = new function() { this.methode =  function () {...} }
 					</code></pre>
 				</section>
 
+				<section>
+					<pre ><code style="max-height:none;" code class="javascript">
+var TortueNinja,
+__hasProp = {}.hasOwnProperty,
+__extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+TortueNinja = (function(_super) {
+
+  __extends(TortueNinja, _super);
+
+  function TortueNinja() {
+    return TortueNinja.__super__.constructor.apply(this, arguments);
+  }
+
+  TortueNinja.prototype.move = function(distance) {
+    TortueNinja.__super__.move.call(this, distance * 2);
+    return console.log(this.name + ': cowabunga !');
+  };
+
+  return TortueNinja;
+
+})(Tortue);
+</code></pre>
 			</section>
 
 			<section>
 				<h2>Quelques liens</h2>
 				<br/>
 				<ul>
+					<li><a href="http://coffeescript.org">Coffeescript</a></li>
 					<li><a href="http://coffeescriptcookbook.com/">Coffeescript cookbook</a></li>
 					<li><a href="http://maxtaco.github.com/coffee-script/">IcedCoffeescript</a></li>
 					<li><a href="http://jslint.com">JSLint</a></li>
-					<li><a href="http://visionmedia.github.com/mocha/">Mocha un framework de test</a></li>
+
 				</ul>
 			</section>
 
